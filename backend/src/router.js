@@ -2,6 +2,6 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('/', (req, res) => res.status(200).send('router funcionando'))
+// router.get('/tasks', (req, res) => res.status(200).send('router funcionando'))
 
 module.exports = router
