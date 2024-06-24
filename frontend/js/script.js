@@ -21,6 +21,20 @@ const createElement = (tag, innerText = '', innerHTML = '') => {
     return element;
 }
 
+const createSelect = (value) => {
+    const options = `
+        <option value="pendente">pendente</option>
+        <option value="em andamento">em andamento</option>
+        <option value="concluída">concluída</option>
+    `;
+
+    const select = createElement('select', '', options);
+
+    select.value = value;
+    
+    return select;
+}
+
 const task = {
     id: 1,
     title: 'Teste',
@@ -38,12 +52,16 @@ const createRow = (task) => {
     const tdStatus = createElement('td');
     const tdActions = createElement('td');
 
+    const select = createSelect(status);
+
     const editButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
     const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">delete</span>');
 
     editButton.classList.add('btn-action');
     deleteButton.classList.add('btn-action');
 
+    tdStatus.appendChild(select);
+    
     tdActions.appendChild(editButton);
     tdActions.appendChild(deleteButton);
 
