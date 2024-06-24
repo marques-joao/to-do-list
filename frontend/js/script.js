@@ -32,6 +32,18 @@ const deleteTask = async (id) => {
     loadTasks();
 }
 
+const updateTask = async (task) => {
+    const { id, title, status } = task;
+
+    await fetch(`http://localhost:3333/tasks/${id}`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, status }),
+    });
+
+    loadTasks();
+}
+
 const formatDate = (dateUTC) => {
     const options = { dateStyle: 'long', timeStyle: 'short' };
     const date = new Date(dateUTC).toLocaleString('pt-br', options);
@@ -78,6 +90,8 @@ const createRow = (task) => {
     const tdActions = createElement('td');
 
     const select = createSelect(status);
+
+    select.addEventListener('change', ({ target }) => updateTask({ ... task, status: target.value}));
 
     const editButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
     const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">delete</span>');
